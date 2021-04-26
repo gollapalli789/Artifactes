@@ -22,14 +22,13 @@
 		</license>
 	</licenses>
 
-	<!-- Required: source control information: -->
+<!-- Required: source control information: -->
 	<scm>
-		<url>https://github.com/davidcarboni/releaser</url>
-		<connection>scm:git:git://github.com/davidcarboni/releaser.git</connection>
-		<developerConnection>scm:git:git@github.com:davidcarboni/releaser.git</developerConnection>
+		<url>https://github.com/gollapalli789/Artifactesli789/New-test</url>
+		<connection>scm:git:git://github.com/gollapalli789/Artifactes.git</connection>
+		<developerConnection>scm:git:git@//github.com/gollapalli789/Artifactes.git</developerConnection>
 		<tag>HEAD</tag>
 	</scm>
-
 	<distributionManagement>
 		<!-- You'll probably want to test this out with a local copy of Nexus OSS. -->
 		<!-- Remove these entries and uncomment the Sonatype Nexus repositories 
