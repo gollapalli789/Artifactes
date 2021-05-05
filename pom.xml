@@ -1,233 +1,173 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.github.davidcarboni</groupId>
-	<artifactId>releaser</artifactId>
-	<version>0.0.4-SNAPSHOT</version>
-	<packaging>jar</packaging>
-	<name>Releaser</name>
-	<description>
-		An example for getting your GitHub project to Maven Central. Demonstrates required POM information and release plugin configuration. 
-		Many thanks to: http://datumedge.blogspot.co.uk/2012/05/publishing-from-github-to-maven-central.html
-	</description>
-	<url>https://github.com/davidcarboni/releaser</url>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
 
-	<!-- Required: license information: -->
-	<licenses>
-		<license>
-			<name>The Apache Software License, Version 2.0</name>
-			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-			<distribution>repo</distribution>
-			<comments>A business-friendly OSS license</comments>
-		</license>
-	</licenses>
+  <groupId>org.sonatype.nexus.examples</groupId>
+  <artifactId>simple-project</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
 
-<!-- Required: source control information: -->
-	<scm>
-		<url>https://github.com/gollapalli789/Artifactesli789/New-test</url>
-		<connection>scm:git:git://github.com/gollapalli789/Artifactes.git</connection>
-		<developerConnection>scm:git:git@//github.com/gollapalli789/Artifactes.git</developerConnection>
-		<tag>HEAD</tag>
-	</scm>
-	<distributionManagement>
-		<!-- You'll probably want to test this out with a local copy of Nexus OSS. -->
-		<!-- Remove these entries and uncomment the Sonatype Nexus repositories 
-			below when you actually want to release. -->
-		<snapshotRepository>
-			<id>localhost-nexus-snapshots</id>
-			<name>Local Nexus snapshot repository</name>
-			<url>http://13.59.186.231:8081/repository/sanpshot/</url>
-		</snapshotRepository>
-		<repository>
-			<id>localhost-nexus-staging</id>
-			<name>Local Nexus release repository</name>
-			<url>http://13.59.186.231:8081/repository/snapshot-1/</url>
-		</repository>
-<!-- 		<snapshotRepository> -->
-<!-- 			<id>sonatype-nexus-snapshots</id> -->
-<!-- 			<name>Sonatype Nexus snapshot repository</name> -->
-<!-- 			<url>https://oss.sonatype.org/content/repositories/snapshots</url> -->
-<!-- 		</snapshotRepository> -->
-<!-- 		<repository> -->
-<!-- 			<id>sonatype-nexus-staging</id> -->
-<!-- 			<name>Sonatype Nexus release repository</name> -->
-<!-- 			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url> -->
-<!-- 		</repository> -->
-	</distributionManagement>
+  <name>simple-project</name>
 
-	<properties>
-		<!-- Optional, but sensible -->
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
-
-	<dependencies>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.13.2</version>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
-
-	<build>
-
-		<!-- Include the README, NOTICE and LICENSE files: -->
-		<resources>
-			<resource>
-				<directory>${project.basedir}</directory>
-				<includes>
-					<include>README*</include>
-					<include>NOTICE*</include>
-					<include>LICENSE*</include>
-				</includes>
-			</resource>
-		</resources>
-
-		<plugins>
-
-			<!-- Optional: JVM 1.6 compliance and UTF-8 encoding: -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.1</version>
-				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
-					<encoding>UTF-8</encoding>
-				</configuration>
-			</plugin>
-
-			<!-- Optional: ensure the manifest contains artifact version information: -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>2.4</version>
-				<configuration>
-					<archive>
-						<manifest>
-							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-							<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
-						</manifest>
-					</archive>
-				</configuration>
-			</plugin>
-
-			<!-- Required: source JAR -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-source-plugin</artifactId>
-				<version>2.2.1</version>
-				<executions>
-					<execution>
-						<id>attach-sources</id>
-						<phase>verify</phase>
-						<goals>
-							<goal>jar-no-fork</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-
-			<!-- Required: javadoc JAR -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.9.1</version>
-				<executions>
-					<execution>
-						<id>attach-javadoc</id>
-						<phase>verify</phase>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-
-			<!-- Release configuration: -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-release-plugin</artifactId>
-				<version>2.5</version>
-
-				<configuration>
-					<!-- Automated passphrase entry: -->
-
-					<!-- To pass your passphrase to the build automatically, so avoiding 
-						manual interaction, you'll need to put the passphrase into settings.xml. 
-						You don't really want that to be in plain text, so you'll want to follow: 
-						http://maven.apache.org/guides/mini/guide-encryption.html -->
-					<!-- <arguments>-Dgpg.passphrase=${gpg.passphrase}</arguments> -->
-
-					<!-- Manual passphrase entry: -->
-
-					<!-- This is the simplest secure solution, but requires you to type 
-						your key passphrase in manually when performing a release. No biggie unless 
-						you want your CI server to decide when to release for you. -->
-					<mavenExecutorId>forked-path</mavenExecutorId>
-
-				</configuration>
-			</plugin>
-			
-			<!-- Deployment -->
-			<plugin>
-				<groupId>org.sonatype.plugins</groupId>
-				<artifactId>nexus-staging-maven-plugin</artifactId>
-				<version>1.6.4</version>
-				<extensions>true</extensions>
-				<configuration>
-					<serverId>sonatype-nexus-staging</serverId>
-					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
-					<autoReleaseAfterClose>true</autoReleaseAfterClose>
-				</configuration>
-			</plugin>
-
-		</plugins>
-	</build>
-
-	<profiles>
-
-		<!-- GPG Signature on release -->
-		<profile>
-			<id>release-sign-artifacts</id>
-			<activation>
-				<property>
-					<name>performRelease</name>
-					<value>true</value>
-				</property>
-			</activation>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-gpg-plugin</artifactId>
-						<version>1.4</version>
-						<executions>
-							<execution>
-								<id>sign-artifacts</id>
-								<phase>verify</phase>
-								<goals>
-									<goal>sign</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-
-	</profiles>
-
-	<!-- Required: developer information: -->
-	<developers>
-		<developer>
-			<id>david</id>
-			<name>David Carboni</name>
-			<email>david@carboni.io</email>
-			<organization>Carboni</organization>
-			<organizationUrl>https://github.com/carboni</organizationUrl>
-			<url>https://github.com/davidcarboni</url>
-		</developer>
-	</developers>
-
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  <distributionManagement>
+    <repository>
+      <id>nexus</id>
+      <name>Nexus Releases</name>
+      <url>http://18.222.195.83:8081/repository/snapshot-1/</url>
+    </repository>
+    <snapshotRepository>
+      <id>nexus</id>
+      <name>Nexus Snapshot</name>
+      <url>http://18.222.195.83:8081/repository/sanpshot/</url>
+    </snapshotRepository>
+    <site>
+      <id>nexus</id>
+      <name>Nexus Sites</name>
+      <url>dav:http://18.222.195.83:8081/#browse/browse</url>
+    </site>
+  </distributionManagement>
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-site-plugin</artifactId>
+        <version>3.4</version>
+        <dependencies>
+          <dependency>
+            <groupId>org.apache.maven.wagon</groupId>
+            <artifactId>wagon-webdav-jackrabbit</artifactId>
+            <version>2.8</version>
+          </dependency>
+        </dependencies>
+        <configuration>
+          <locales>en,fr</locales>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jbundle.util</groupId>
+      <artifactId>org.jbundle.util.jbackup</artifactId>
+      <version>2.0.0</version>
+    </dependency>
+    <dependency>
+      <groupId>net.sf.webtestfixtures</groupId>
+      <artifactId>webtestfixtures</artifactId>
+      <version>2.0.1.3</version>
+    </dependency>
+    <dependency>
+      <groupId>org.shoal</groupId>
+      <artifactId>shoal-gms-api</artifactId>
+      <version>1.5.8</version>
+    </dependency>
+    <dependency>
+      <groupId>org.ow2.util</groupId>
+      <artifactId>util-i18n</artifactId>
+      <version>1.0.22</version>
+    </dependency>
+    <dependency>
+      <groupId>com.sun.grizzly</groupId>
+      <artifactId>grizzly-lzma</artifactId>
+      <version>1.9.19-beta5</version>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.sonar</groupId>
+      <artifactId>sonar-squid</artifactId>
+      <version>2.9</version>
+    </dependency>
+    <dependency>
+      <groupId>org.graniteds</groupId>
+      <artifactId>granite-openjpa</artifactId>
+      <version>2.2.0.SP1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.tomcat</groupId>
+      <artifactId>tomcat-util</artifactId>
+      <version>7.0.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-http</artifactId>
+      <version>2.4.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.struts.xwork</groupId>
+      <artifactId>xwork-core</artifactId>
+      <version>2.2.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jruby</groupId>
+      <artifactId>jruby-complete</artifactId>
+      <version>1.1RC1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jruby</groupId>
+      <artifactId>jruby</artifactId>
+      <version>1.6.3</version>
+    </dependency>
+    <dependency>
+      <groupId>org.mortbay.jetty</groupId>
+      <artifactId>jetty</artifactId>
+      <version>6.1.16</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.derby</groupId>
+      <artifactId>derby</artifactId>
+      <version>10.1.2.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-web</artifactId>
+      <version>3.1.1.RELEASE</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.code.facebookapi</groupId>
+      <artifactId>facebook-java-api</artifactId>
+      <version>3.0.4</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>12.0</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava-gwt</artifactId>
+      <version>12.0</version>
+    </dependency>
+    <dependency>
+      <groupId>biz.littlej.jreqs</groupId>
+      <artifactId>jreqs-guava</artifactId>
+      <version>0.1.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.sonatype.sisu</groupId>
+      <artifactId>sisu-ehcache</artifactId>
+      <version>1.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.sonatype.sisu</groupId>
+      <artifactId>sisu-xmlrpc-client</artifactId>
+      <version>1.2.0</version>
+    </dependency>
+    <dependency>
+      <groupId>com.googlecode</groupId>
+      <artifactId>kiama_2.8.1</artifactId>
+      <version>1.0.2</version>
+    </dependency>
+    <dependency>
+      <groupId>com.googlecode</groupId>
+      <artifactId>jyield</artifactId>
+      <version>0.0.6</version>
+    </dependency>
+  </dependencies>
 </project>
